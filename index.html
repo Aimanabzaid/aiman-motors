@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Aiman Motors - Tu coche ideal</title>
+  <meta name="description" content="Aiman Motors: Encuentra tu coche ideal con asesoramiento personalizado, revisión presencial y limpieza profesional. Compra con total confianza.">
+  <link rel="icon" href="https://i.imgur.com/apQ7hR2.jpeg" type="image/jpeg" />
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0; padding: 0;
+      background-color: #222;
+      color: #ddd;
+    }
+    header {
+      background-color: #121212;
+      padding: 20px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+    header a img {
+      height: 60px;
+      cursor: pointer;
+    }
+    header h1 {
+      color: #f2c94c;
+      font-weight: 900;
+      letter-spacing: 2px;
+      margin: 0;
+      font-size: 2rem;
+    }
+
+    nav {
+      background-color: #333;
+      text-align: center;
+      padding: 12px 0;
+      flex-wrap: wrap;
+      position: relative;
+    }
+    nav ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+    }
+    nav ul li {
+      display: inline-block;
+    }
+    nav a {
+      color: #f2c94c;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.1rem;
+      display: inline-block;
+      cursor: pointer;
+    }
+    nav a:hover,
+    nav a:focus {
+      color: #fff;
+      outline: none;
+      text-decoration: underline;
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: space-around;
+      width: 28px;
+      height: 24px;
+      cursor: pointer;
+      background: transparent;
+      border: none;
+      padding: 0;
+      margin-left: 15px;
+    }
+    .hamburger span {
+      width: 100%;
+      height: 3px;
+      background: #f2c94c;
+      border-radius: 2px;
+      transition: all 0.3s linear;
+      position: relative;
+    }
+    .hamburger.active span:nth-child(1) {
+      transform: rotate(45deg);
+      top: 8px;
+      position: relative;
+    }
+    .hamburger.active span:nth-child(2) {
+      opacity: 0;
+    }
+    .hamburger.active span:nth-child(3) {
+      transform: rotate(-45deg);
+      top: -8px;
+      position: relative;
+    }
+
+    @media (max-width: 768px) {
+      nav ul {
+        flex-direction: column;
+        background-color: #333;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease-in-out;
+        border-top: 1px solid #f2c94c;
+      }
+      nav ul.open {
+        max-height: 300px;
+      }
+      .hamburger {
+        display: flex;
+      }
+    }
+
+    main {
+      max-width: 1100px;
+      margin: 40px auto;
+      background-color: #121212;
+      padding: 30px 40px;
+      border-radius: 10px;
+      display: flex;
+      gap: 40px;
+      color: #ddd;
+      flex-wrap: wrap;
+    }
+    .services {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      flex: 1 1 400px;
+    }
+    .service-card {
+      background-color: #1e1e1e;
+      padding: 15px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, border 0.3s ease;
+      border: 2px solid transparent;
+      flex-wrap: wrap;
+      outline-offset: 3px;
+    }
+    .service-card:hover,
+    .service-card:focus {
+      background-color: #2a2a2a;
+      outline: none;
+    }
+    .service-card.active {
+      border-color: #f2c94c;
+      background-color: #2a2a2a;
+    }
+    .service-card img {
+      width: 100px;
+      height: 70px;
+      object-fit: cover;
+      border-radius: 5px;
+      flex-shrink: 0;
+    }
+    .service-card h3 {
+      margin: 0;
+      font-size: 1.3rem;
+      color: #f2c94c;
+      flex-grow: 1;
+    }
+    .service-card p {
+      margin: 0;
+      font-size: 0.95rem;
+      color: #ccc;
+      display: none;
+      width: 100%;
+    }
+    .service-card.active p {
+      display: block;
+    }
+    .detail-box {
+      flex: 1 1 500px;
+      background-color: #1a1a1a;
+      border-radius: 8px;
+      padding: 25px;
+      color: #eee;
+      box-shadow: 0 0 15px #f2c94c;
+      min-height: 240px;
+      font-size: 1.15rem;
+      line-height: 1.5;
+      transition: opacity 0.3s ease;
+      opacity: 1;
+    }
+    footer {
+      background-color: #121212;
+      text-align: center;
+      color: #777;
+      padding: 15px 0;
+      font-size: 0.9rem;
+      margin-top: 50px;
+      letter-spacing: 0.5px;
+    }
+    .btn-primary {
+      background-color: #f2c94c;
+      color: #111;
+      font-weight: bold;
+      padding: 12px 24px;
+      border-radius: 6px;
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 20px;
+      transition: background-color 0.3s ease;
+      user-select: none;
+    }
+    .btn-primary:hover,
+    .btn-primary:focus {
+      background-color: #d1aa2b;
+      outline: none;
+      text-decoration: none;
+    }
+    #contacto p {
+      margin: 0 0 10px;
+      font-size: 1.1rem;
+    }
+    #contacto a {
+      color: #f2c94c;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    #contacto a:hover,
+    #contacto a:focus {
+      text-decoration: underline;
+      outline: none;
+    }
+
+    .section {
+      background: #1c1c1c;
+      border-radius: 12px;
+      padding: 30px 40px;
+      color: #ddd;
+      border: 1px solid #f2c94c;
+      box-shadow: inset 0 0 30px rgba(242, 201, 76, 0.05);
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+      margin: 40px auto;
+      max-width: 1100px;
+    }
+    .section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+      }
+      main {
+        flex-direction: column;
+        padding: 20px;
+      }
+      .service-card {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .service-card img {
+        width: 100%;
+        height: auto;
+      }
+      nav ul {
+        flex-direction: column;
+        background-color: #333;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease-in-out;
+        border-top: 1px solid #f2c94c;
+      }
+      nav ul.open {
+        max-height: 300px;
+      }
+      .hamburger {
+        display: flex;
+      }
+    }
+
+    /* --- Estilos formulario (del código que enviaste) --- */
+    form#carForm {
+      max-width: 600px;
+      margin: 40px auto 60px auto;
+      background: #121212;
+      padding: 30px 40px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px #f2c94c;
+      color: #ddd;
+    }
+    form#carForm label {
+      display: block;
+      margin-top: 15px;
+      color: #f2c94c;
+      font-weight: bold;
+    }
+    form#carForm input,
+    form#carForm select {
+      width: 100%;
+      padding: 8px;
+      border-radius: 6px;
+      border: none;
+      background: #333;
+      color: #eee;
+      margin-top: 5px;
+      box-sizing: border-box;
+      font-size: 1rem;
+    }
+    form#carForm input[type="submit"] {
+      background: #f2c94c;
+      color: #111;
+      font-weight: bold;
+      margin-top: 20px;
+      cursor: pointer;
+      font-size: 1.1rem;
+      transition: background-color 0.3s ease;
+    }
+    form#carForm input[type="submit"]:hover {
+      background: #d1aa2b;
+    }
+    #mensajeError {
+      color: #ff6666;
+      margin-top: 10px;
+      display: none;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <a href="#" aria-label="Inicio - Aiman Motors">
+      <img src="https://i.imgur.com/apQ7hR2.jpeg" alt="Logo Aiman Motors" loading="lazy" decoding="async"/>
+    </a>
+    <h1>Aiman Motors</h1>
+
+    <button class="hamburger" aria-label="Abrir menú de navegación" aria-controls="menu-nav" aria-expanded="false" aria-haspopup="true" type="button">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </header>
+
+  <nav role="navigation" aria-label="Menú principal">
+    <ul id="menu-nav">
+      <li><a href="#servicios">Servicios</a></li>
+      <li><a href="#proceso">Proceso</a></li>
+      <li><a href="#tarifas">Tarifas</a></li>
+      <li><a href="#presentacion">Presentación</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+      <li><a href="#formulario">Formulario</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <section id="servicios" class="services" aria-label="Lista de servicios" tabindex="0">
+      <div tabindex="0" role="button" class="service-card" data-key="busqueda" aria-pressed="false" aria-describedby="desc-busqueda">
+        <img src="https://images.unsplash.com/photo-1502877338535-766e1452684?auto=format&fit=crop&w=400&q=80" alt="Búsqueda personalizada" loading="lazy" decoding="async" />
+        <h3>Búsqueda personalizada</h3>
+        <p id="desc-busqueda">Te ayudamos a encontrar el coche que buscas según tu presupuesto y necesidades reales.</p>
+      </div>
+      <div tabindex="0" role="button" class="service-card" data-key="revision" aria-pressed="false" aria-describedby="desc-revision">
+        <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=400&q=80" alt="Inspección presencial" loading="lazy" decoding="async" />
+        <h3>Inspección presencial</h3>
+        <p id="desc-revision">Vamos físicamente a revisar el coche para asegurar que todo está perfecto.</p>
+      </div>
+      <div tabindex="0" role="button" class="service-card" data-key="limpieza" aria-pressed="false" aria-describedby="desc-limpieza">
+        <img src="https://images.unsplash.com/photo-1581091012184-1b2862b6a43e?auto=format&fit=crop&w=400&q=80" alt="Limpieza profesional" loading="lazy" decoding="async" />
+        <h3>Limpieza profesional</h3>
+        <p id="desc-limpieza">Limpieza a fondo interior y exterior para entregar el coche impecable.</p>
+      </div>
+      <div tabindex="0" role="button" class="service-card" data-key="acompanamiento" aria-pressed="false" aria-describedby="desc-acompanamiento">
+        <img src="https://images.unsplash.com/photo-1526045612212-70caf35c14df?auto=format&fit=crop&w=400&q=80" alt="Acompañamiento en la compra" loading="lazy" decoding="async" />
+        <h3>Acompañamiento total</h3>
+        <p id="desc-acompanamiento">Te asesoramos y acompañamos en todo el proceso para que compres con confianza.</p>
+      </div>
+    </section>
+
+    <section class="detail-box" id="detalle" tabindex="0" aria-live="polite" aria-atomic="true" aria-label="Detalle del servicio seleccionado">
+      <h2>Selecciona un servicio para ver detalles</h2>
+      <p>Haz clic en cualquiera de los servicios para conocer más sobre lo que ofrecemos.</p>
+    </section>
+  </main>
+
+  <section id="proceso" class="section" tabindex="0">
+    <h2>Proceso</h2>
+    <ol style="font-size: 1.1rem; line-height: 1.6;">
+      <li>Nos dices qué coche buscas y tu presupuesto.</li>
+      <li>Seleccionamos y revisamos opciones reales para ti.</li>
+      <li>Te presentamos el mejor coche disponible.</li>
+      <li>Te lo entregamos limpio y listo para usar.</li>
+    </ol>
+  </section>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tarifas - Aiman Motors</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #121212;
+      color: #ddd;
+      margin: 20px;
+      padding: 0;
+    }
+    h1, h2 {
+      color: #f2c94c;
+      text-align: center;
+      margin-bottom: 15px;
+    }
+    table {
+      width: 100%;
+      max-width: 600px;
+      margin: 20px auto 40px;
+      border-collapse: collapse;
+      background-color: #1e1e1e;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 0 15px #f2c94c33;
+    }
+    thead {
+      background-color: #f2c94c;
+      color: #111;
+    }
+    th, td {
+      padding: 12px 20px;
+      text-align: center;
+      border-bottom: 1px solid #333;
+    }
+    tbody tr:hover {
+      background-color: #2a2a2a;
+    }
+    tbody tr:last-child td {
+      border-bottom: none;
+    }
+    .tarifa-container {
+      max-width: 600px;
+      margin: 0 auto 40px;
+      background-color: #1c1c1c;
+      border: 2px solid #f2c94c;
+      border-radius: 12px;
+      padding: 25px 30px;
+      box-shadow: 0 0 20px #f2c94c55;
+    }
+    .tarifa-container h2 {
+      margin-top: 0;
+      margin-bottom: 15px;
+    }
+    .tarifa-list {
+      list-style-type: none;
+      padding-left: 0;
+      font-size: 1.1rem;
+      color: #ddd;
+      line-height: 1.6;
+    }
+    .tarifa-list li {
+      margin-bottom: 10px;
+    }
+    .tarifa-list strong {
+      color: #f2c94c;
+    }
+    footer {
+      text-align: center;
+      color: #777;
+      font-size: 0.9rem;
+      margin-top: 50px;
+      user-select: none;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Tarifas para clientes - Aiman Motors</h1>
+
+  <table aria-label="Tabla de comisiones según precio del coche">
+    <thead>
+      <tr>
+        <th>Precio del coche (€)</th>
+        <th>Comisión aproximada (€)</th>
+        <th>¿Por qué?</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Hasta 3.000</td>
+        <td>150 – 200</td>
+        <td>Coche barato, menor margen y trabajo sencillo</td>
+      </tr>
+      <tr>
+        <td>3.000 – 6.000</td>
+        <td>200 – 300</td>
+        <td>Mayor variedad y opciones, algo más de trabajo</td>
+      </tr>
+      <tr>
+        <td>6.000 – 10.000</td>
+        <td>300 – 400</td>
+        <td>Cliente busca coche de calidad media</td>
+      </tr>
+      <tr>
+        <td>10.000 – 15.000</td>
+        <td>400 – 500</td>
+        <td>Más responsabilidad y exigencia en la selección</td>
+      </tr>
+      <tr>
+        <td>Más de 15.000</td>
+        <td>A convenir  ~</td>
+        <td>Negociación flexible según caso y tipo de coche</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <section class="tarifa-container" aria-label="Tarifa oficial Aiman Motors para servicios de búsqueda y acompañamiento">
+    <h2>Tarifa Aiman Motors</h2>
+    <ul class="tarifa-list">
+      <li><strong>Estudio y asesoramiento inicial:</strong> Gratis</li>
+      <li><strong>Búsqueda personalizada, revisión y acompañamiento:</strong> Desde 150 € (según coche y zona)</li>
+      <li><strong>Limpieza profesional (opcional):</strong> Desde 25 €</li>
+      <li><strong>Gestión de papeleo y asesoría (opcional):</strong> Desde 30 €</li>
+    </ul>
+    <p><em>Pago solo si se cierra el trato con éxito, para tu total tranquilidad.</em></p>
+  </section>
+
+  <footer>
+    &copy; 2025 Aiman Motors. Todos los derechos reservados.
+  </footer>
+
+</body>
+</html>
+ 
+
+  <section id="presentacion" class="section" tabindex="0">
+    <h2>Presentación</h2>
+    <p>
+      Hola, soy Aiman, un apasionado del motor de 21 años. Trabajo en este sector por vocación y disfruto ayudando a las personas a encontrar el coche ideal para sus necesidades y presupuesto. Mi objetivo es ofrecer un servicio personalizado, honesto y cercano para que compres con total confianza y sin sorpresas. ¡Vamos a encontrar tu próximo coche juntos!
+    </p>
+  </section>
+
+  <section id="contacto" class="section" style="text-align: center;" tabindex="0">
+    <h2>Contacto</h2>
+    <p>Escríbeme por WhatsApp o email y te ayudo sin compromiso.</p>
+    <p><strong>Teléfono:</strong> <a href="tel:+34634606212" style="color: #f2c94c; text-decoration: none;">634 606 212</a></p>
+    <p><strong>Email:</strong> <a href="mailto:aimamotorsg@gmail.com" style="color: #f2c94c; text-decoration: none;">aimamotorsg@gmail.com</a></p>
+    <a class="btn-primary" href="https://wa.me/34634606212" target="_blank" rel="noopener noreferrer" aria-label="Enviar mensaje por WhatsApp para conseguir mi coche">Quiero mi coche</a>
+  </section>
+
+  <!-- FORMULARIO INTEGRADO AQUÍ -->
+  <section id="formulario" class="section" tabindex="0" style="max-width: 700px; margin: 40px auto;">
+    <h2 style="color:#f2c94c; text-align:center;">Solicita tu coche ideal</h2>
+    <form id="carForm" 
+          action="https://formsubmit.co/aimanmotorsg@gmail.com" 
+          method="POST" 
+          novalidate>
+      
+      <label for="nombre">Nombre</label>
+      <input type="text" id="nombre" name="Nombre" placeholder="Tu nombre" required />
+
+      <label for="marca">Marca</label>
+      <input list="marcas-list" id="marca" name="Marca" placeholder="Escribe o selecciona una marca" required />
+      <datalist id="marcas-list"></datalist>
+
+      <label for="modelo">Modelo</label>
+      <input list="modelos-list" id="modelo" name="Modelo" placeholder="Escribe o selecciona un modelo" required />
+      <datalist id="modelos-list"></datalist>
+
+      <label for="anio">Año</label>
+      <select id="anio" name="Año" required>
+        <option value="" disabled selected>Selecciona el año</option>
+      </select>
+
+      <label for="combustible">Combustible</label>
+      <select id="combustible" name="Combustible" required>
+        <option value="" disabled selected>Selecciona tipo de combustible</option>
+        <option value="Gasolina">Gasolina</option>
+        <option value="Diésel">Diésel</option>
+        <option value="Eléctrico">Eléctrico</option>
+        <option value="Híbrido">Híbrido</option>
+        <option value="GLP">GLP</option>
+        <option value="Gas Natural">Gas Natural</option>
+        <option value="Otro">Otro</option>
+      </select>
+
+      <label for="contacto">Correo electrónico o teléfono</label>
+      <input type="text" id="contacto" name="Contacto" placeholder="Email o teléfono para contactarte" required />
+
+      <input type="hidden" name="_captcha" value="false" />
+      <input type="hidden" name="_subject" value="Solicitud de coche - Aiman Motors" />
+      <input type="hidden" name="_template" value="table" />
+
+      <input type="submit" value="Enviar solicitud" />
+      <p id="mensajeError" role="alert" aria-live="assertive"></p>
+    </form>
+  </section>
+
+  <footer>
+    &copy; 2025 Aiman Motors. Todos los derechos reservados.
+  </footer>
+
+  <script>
+    const details = {
+      busqueda: "Te ayudamos a encontrar el coche que buscas según tu presupuesto y necesidades reales. Olvídate de estafas y tiempo perdido en coches que no valen la pena.",
+      revision: "Vamos físicamente a revisar el coche para asegurar que todo está perfecto. Comprobamos motor, papeles, historial y posibles fallos ocultos.",
+      limpieza: "Limpieza a fondo interior y exterior. Detallamos asientos, salpicaderos, cristales, alfombrillas y más para que el coche quede impecable.",
+      acompanamiento: "Te asesoramos y acompañamos en todo el proceso de compra para que compres con confianza y sin sorpresas."
+    };
+
+    const serviceCards = document.querySelectorAll('.service-card');
+    const detailBox = document.getElementById('detalle');
+
+    serviceCards.forEach(card => {
+      card.addEventListener('click', () => {
+        serviceCards.forEach(c => {
+          c.classList.remove('active');
+          c.setAttribute('aria-pressed', 'false');
+        });
+        card.classList.add('active');
+        card.setAttribute('aria-pressed', 'true');
+
+        detailBox.style.opacity = 0;
+        setTimeout(() => {
+          const key = card.getAttribute('data-key');
+          detailBox.innerHTML = `
+            <h2>${card.querySelector('h3').textContent}</h2>
+            <p>${details[key]}</p>
+          `;
+          detailBox.style.opacity = 1;
+        }, 300);
+      });
+
+      card.addEventListener('keydown', (e) => {
+        if(e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          card.click();
+        }
+      });
+    });
+
+    document.querySelectorAll('nav a').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href').substring(1);
+        const targetSection = document.getElementById(targetId);
+        if (targetSection) {
+          targetSection.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.2 });
+
+    document.querySelectorAll('.section').forEach(section => {
+      observer.observe(section);
+    });
+
+    const hamburger = document.querySelector('.hamburger');
+    const navUl = document.getElementById('menu-nav');
+
+    hamburger.addEventListener('click', () => {
+      const expanded = hamburger.getAttribute('aria-expanded') === 'true' || false;
+      hamburger.setAttribute('aria-expanded', !expanded);
+      navUl.classList.toggle('open');
+      hamburger.classList.toggle('active');
+      if (!expanded) {
+        navUl.querySelector('a').focus();
+      }
+    });
+
+    // --- Código para cargar marcas, modelos y años en el formulario ---
+
+    const marcas = [
+      "Audi", "BMW", "Citroën", "Ford", "Honda", "Hyundai", "Kia", "Mazda",
+      "Mercedes-Benz", "Nissan", "Opel", "Peugeot", "Renault", "SEAT", "Skoda",
+      "Toyota", "Volkswagen", "Volvo"
+    ];
+
+    const modelos = [
+      "A1", "A3", "A4", "A6", "Q5", "Serie 3", "Serie 5", "C3", "C4", "Focus",
+      "Civic", "i30", "Ceed", "CX-5", "Clase C", "Clase E", "Qashqai", "Astra",
+      "208", "Clio", "Ibiza", "Octavia", "Corolla", "Golf", "V40"
+    ];
+
+    const marcaDatalist = document.getElementById('marcas-list');
+    const modeloDatalist = document.getElementById('modelos-list');
+    const anioSelect = document.getElementById('anio');
+
+    marcas.forEach(marca => {
+      const option = document.createElement('option');
+      option.value = marca;
+      marcaDatalist.appendChild(option);
+    });
+
+    modelos.forEach(modelo => {
+      const option = document.createElement('option');
+      option.value = modelo;
+      modeloDatalist.appendChild(option);
+    });
+
+    for(let year = 2025; year >= 1990; year--) {
+      const option = document.createElement('option');
+      option.value = year;
+      option.textContent = year;
+      anioSelect.appendChild(option);
+    }
+
+    // Validación sencilla antes de enviar
+    const form = document.getElementById('carForm');
+    const errorMsg = document.getElementById('mensajeError');
+
+    form.addEventListener('submit', e => {
+      errorMsg.style.display = 'none';
+      errorMsg.textContent = '';
+
+      if (!form.checkValidity()) {
+        e.preventDefault();
+        errorMsg.textContent = 'Por favor, completa todos los campos correctamente.';
+        errorMsg.style.display = 'block';
+        return false;
+      }
+    });
+  </script>
+</body>
+</html>
